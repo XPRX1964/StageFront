@@ -34,7 +34,7 @@ const ProductsList = () => {
           {products.map((product, index) => (
             <ProductGridCard
               key={product._id || index}
-              imgsrc={product.images[0]}
+              imgsrc={product.images}
               productname={product.name}
               price={product.price}
             />

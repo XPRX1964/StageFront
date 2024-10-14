@@ -8,18 +8,22 @@ import Chip from "@mui/joy/Chip";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import im1 from "/Images/p1i1.png";
 
-export default function ProductCard() {
+export default function ProductCard({ imgsrc, productname, price }) {
   return (
     <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
       <CardOverflow>
-        <AspectRatio sx={{ minWidth: 200 }}>
-          <img src={im1} loading="lazy" alt="" />
+        <AspectRatio sx={{ minWidth: 300 }}>
+          <img
+            src={imgsrc[0]}
+            loading="lazy"
+            alt={productname}
+            className="w-full h-full object-contain"
+          />
         </AspectRatio>
       </CardOverflow>
       <CardContent>
-        <Typography level="body-xs">Bluetooth Headset</Typography>
+        <Typography level="body-xs">{productname}</Typography>
         <Link
           href="#product-card"
           color="neutral"
@@ -28,7 +32,7 @@ export default function ProductCard() {
           endDecorator={<ArrowOutwardIcon />}
           sx={{ fontWeight: "md" }}
         >
-          Super Rockez A400
+          {productname}
         </Link>
 
         <Typography
@@ -40,7 +44,7 @@ export default function ProductCard() {
             </Chip>
           }
         >
-          2,900 THB
+          ${price}
         </Typography>
         <Typography level="body-sm">
           (Only <b>7</b> left in stock!)

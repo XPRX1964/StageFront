@@ -80,7 +80,7 @@ const Cart = () => {
                     <td className="pl-[30px] py-[30px] ">
                       <div className="flex items-center">
                         <img
-                          src={item.image}
+                          src={item.image[0]}
                           alt={item.name}
                           className="w-16 h-16 object-cover mr-2"
                         />

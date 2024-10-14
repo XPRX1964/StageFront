@@ -15,14 +15,14 @@ function ProductGridCard({ imgsrc, productname, price }) {
         <div className="product-image-container relative w-full h-[400px]">
           <button className="w-full" onClick={handlePopupToggle}>
             <img
-              src={imgsrc}
+              src={imgsrc[0]}
               alt="Product Image 1"
-              className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
+              className="absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
             />
             <img
-              src={imgsrc}
+              src={imgsrc[1]}
               alt="Product Image 2"
-              className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
+              className="absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
             />
           </button>
           <Buypopup imgsrc={imgsrc} productname={productname} price={price} />

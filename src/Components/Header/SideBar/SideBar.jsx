@@ -172,7 +172,9 @@ function SideBar({ isOpen, toggleSidebar }) {
                           <HeartIcon color="black" fill="white" />{" "}
                         </div>
                         <div>
-                          <span>Whish List</span>
+                          <Link to="/favorites">
+                            <span>Whish List</span>
+                          </Link>
                         </div>
                       </div>
                     </button>

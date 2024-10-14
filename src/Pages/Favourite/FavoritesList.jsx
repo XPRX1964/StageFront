@@ -101,7 +101,7 @@ const FavoritesList = () => {
                 <td className="border p-2">
                   <div className="flex justify-center items-center">
                     <img
-                      src={item.image}
+                      src={item.image[0]}
                       alt={item.name}
                       className="w-16 h-16 object-cover"
                     />
@@ -118,7 +118,7 @@ const FavoritesList = () => {
                   </div>
                 </td>
                 <td className="border p-2">
-                  <div className="flex justify-center items-center gap-2">
+                  <div className="flex flex-wrap justify-center items-center gap-2">
                     <button
                       onClick={() => removeFavorite(item.name)}
                       className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"

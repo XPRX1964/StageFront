@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Buypopup from "./ProductsImages/Buypopup";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 
-function ProductGridCard({ imgsrc, productname, price }) {
+function ProductGridCard({ imgsrc, productname, price, quantity }) {
   const [showPopup, setShowPopup] = useState(false);
 
   const handlePopupToggle = () => {
@@ -25,7 +25,12 @@ function ProductGridCard({ imgsrc, productname, price }) {
               className="absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
             />
           </button>
-          <Buypopup imgsrc={imgsrc} productname={productname} price={price} />
+          <Buypopup
+            quantity={quantity}
+            imgsrc={imgsrc}
+            productname={productname}
+            price={price}
+          />
         </div>
 
         <div className="mt-[20px]">
@@ -57,6 +62,7 @@ function ProductGridCard({ imgsrc, productname, price }) {
               imgsrc={imgsrc}
               productname={productname}
               price={price}
+              quantity={quantity}
             />
           </div>
         </div>

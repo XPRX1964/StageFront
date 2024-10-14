@@ -9,11 +9,12 @@ import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
-export default function ProductCard({ imgsrc, productname, price }) {
+export default function ProductCard({ imgsrc, productname, price, quantity }) {
+  console.log("ProductCard - Quantity:", quantity);
   return (
     <Card sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
       <CardOverflow>
-        <AspectRatio sx={{ minWidth: 300 }}>
+        <AspectRatio sx={{ minWidth: 200 }}>
           <img
             src={imgsrc[0]}
             loading="lazy"
@@ -47,7 +48,7 @@ export default function ProductCard({ imgsrc, productname, price }) {
           ${price}
         </Typography>
         <Typography level="body-sm">
-          (Only <b>7</b> left in stock!)
+          (Only <b>{quantity}</b> left in stock!)
         </Typography>
       </CardContent>
       <CardOverflow>

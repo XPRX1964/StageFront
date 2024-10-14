@@ -4,7 +4,7 @@ import ShopingCart from "../../../../Components/Header/ShopingCart";
 import EyeSvg from "../EyeSvg";
 import ProductCard from "../../../../Components/ProductCard/ProductCard";
 
-const Buypopup = ({ imgsrc, productname, price }) => {
+const Buypopup = ({ imgsrc, productname, price, quantity }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -145,6 +145,7 @@ const Buypopup = ({ imgsrc, productname, price }) => {
               imgsrc={imgsrc}
               productname={productname}
               price={price}
+              quantity={quantity}
             />
           </div>
         </div>

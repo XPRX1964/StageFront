@@ -1,26 +1,34 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import EyeSee from "../Register/EyeSee";
 import Eye from "../Register/Eye";
-function Login() {
+import axiosInstance from "./axiosInstance";
+function Login({ setIsAuthenticated }) {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const navigate = useNavigate();
+  const [isAuthenticated, setAuthenticated] = useState({ setIsAuthenticated });
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 250);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigate]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -32,15 +40,26 @@ function Login() {
           password,
         }
       );
-      console.log(response.data);
+      const token = response.data.token;
+      const refreshToken = response.data.refreshToken;
 
-      alert("Successfully logged in !");
-      navigate("/");
+      if (token && refreshToken) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("role", response.data.data.user.role);
+
+        setAuthenticated(true);
+        alert("Successfully logged in!");
+        navigate("/");
+      } else {
+        console.error("Missing tokens in the response");
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed"); // Set error message if exists
+      setError(err.response?.data?.message || "Login failed");
       console.error(err);
     }
   };
+
   return (
     <div
       className={`animate-fadein ${isVisible ? "opacity-100" : "opacity-0"}`}

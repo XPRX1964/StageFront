@@ -1,28 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import EditAccount from "./EditAccount";
 import ChangePassword from "./ChangePassword";
 import axios from "axios";
-
 function MyAccount() {
   const [openSection, setOpenSection] = useState(null);
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/logout",
-        {}
-      );
-      console.log(response.data);
-      // Clear any user authentication data (local storage, context, etc.)
-      localStorage.removeItem("user"); // Example of removing user data from local storage
-      // Redirect to home or login page
-      navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("role");
+    setIsAuthenticated(false);
+    navigate("/");
   };
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+  }
+
   return (
     <div>
       <div className="py-[35px] flex justify-center gap-2 bg-[#f7f7f7] w-full text-center font-poppins font-[15px] ">

@@ -10,7 +10,8 @@ const Icons = ({
   toggleProfile,
   isSearchOpen,
   isProfileOpen,
-  isAuthenticated, // New prop
+  isAuthenticated,
+  handleLogout, // New prop for logout functionality
 }) => {
   const [searchHeight, setSearchHeight] = useState(0);
   const [profileHeight, setProfileHeight] = useState(0);
@@ -23,7 +24,7 @@ const Icons = ({
   }, [isSearchOpen]);
 
   useEffect(() => {
-    setProfileHeight(isProfileOpen ? profileRef.current.scrollHeight : 0);
+    setProfileHeight(isProfileOpen ? profileRef.current.scrollHeight + 10 : 0);
   }, [isProfileOpen]);
 
   return (
@@ -86,11 +87,10 @@ const Icons = ({
       >
         <div className="flex-1 flex justify-center">
           <div className="flex flex-col items-start py-1 justify-between font-poppins text-[13px]">
-            {/* Conditionally render links based on authentication status */}
             {!isAuthenticated ? (
               <>
                 <button>
-                  <div className="hover:text-red-500 transition-colors">
+                  <div className="hover:text-red-500 transition-colors ">
                     <Link to="/login">Login</Link>
                   </div>
                 </button>
@@ -100,12 +100,20 @@ const Icons = ({
                   </div>
                 </button>
               </>
-            ) : null}
-            <button>
-              <div className="hover:text-red-500 transition-colors">
-                <Link to="/myaccount">My Account</Link>
-              </div>
-            </button>
+            ) : (
+              <>
+                <button>
+                  <div className="hover:text-red-500 transition-colors">
+                    <Link to="/myaccount">My Account</Link>
+                  </div>
+                </button>
+                <button onClick={handleLogout}>
+                  <div className="hover:text-red-500 transition-colors">
+                    Logout
+                  </div>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

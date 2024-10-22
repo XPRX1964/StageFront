@@ -33,14 +33,15 @@ function Banner() {
           </div>
 
           <div className="pt-5 flex justify-center tablet:justify-start animate-fadeinright">
-            <button className="btn relative inline-flex items-center justify-start overflow-hidden font-medium transition-all bg-red-100 hover:bg-red-100 border border-black group px-[35px] py-[15px]">
-              <span className="w-56 h-48 rounded bg-red-600 absolute bottom-0 left-0 translate-x-full ease-out duration-[700ms] transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
-              <Link to="/shop">
+            <Link to="/shop">
+              <button className="btn relative inline-flex items-center justify-start overflow-hidden font-medium transition-all bg-red-100 hover:bg-red-100 border border-black group px-[35px] py-[15px]">
+                <span className="w-56 h-48 rounded bg-red-600 absolute bottom-0 left-0 translate-x-full ease-out duration-[700ms] transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+
                 <span className="relative w-full text-left text-black font-poppins transition-colors duration-300 ease-in-out group-hover:text-white">
                   SHOP NOW
                 </span>
-              </Link>
-            </button>
+              </button>
+            </Link>
           </div>
         </div>
 

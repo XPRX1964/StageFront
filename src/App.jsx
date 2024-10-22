@@ -12,7 +12,8 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Cart from "./Pages/Cart/Cart";
 import FavoritesList from "./Pages/Favourite/FavoritesList";
-
+import AdminDashboard from "./Pages/AdminDashboards/ProductDashboard/AdminDashboard";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 function App() {
   return (
     <Router>
@@ -29,6 +30,14 @@ function App() {
             <Route exact path="/myaccount" element={<MyAccount />} />
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/favorites" element={<FavoritesList />} />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<NotFoud />} />
           </Routes>
         </div>

@@ -4,21 +4,35 @@ import axios from "axios";
 import Eye from "./Eye";
 import EyeSee from "./EyeSee";
 
-function Register() {
+function Register({ setIsAuthenticated }) {
   const [isVisible, setIsVisible] = useState(false);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [isAuthenticated, setAuthenticated] = useState({ setIsAuthenticated });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  const navigate = useNavigate();
+
   const handleRegister = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/register",
@@ -30,20 +44,20 @@ function Register() {
         }
       );
       console.log("Registration successful", response.data);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.data.user.role);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      setIsAuthenticated(true);
       alert("Account created successfully!");
       navigate("/");
     } catch (error) {
-      // Log specific error messages
       if (error.response && error.response.data) {
-        // Check if there's a general error message
         console.error(
           "Error:",
           error.response.data.message || "Registration failed"
         );
 
-        // Check for specific validation errors
         if (error.response.data.errors) {
-          // Log individual field errors
           if (error.response.data.errors.password) {
             console.error(
               "Password error:",
@@ -68,15 +82,6 @@ function Register() {
       }
     }
   };
-
-  useEffect(() => {
-    // Ensure that the content is not visible until the animation starts
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 250);
-
-    return () => clearTimeout(timer); // Cleanup
-  }, []);
 
   return (
     <div
@@ -137,7 +142,7 @@ function Register() {
                     <button
                       type="button"
                       onClick={togglePasswordVisibility}
-                      className="transition  max-h-fit mx-2"
+                      className="transition max-h-fit mx-2"
                     >
                       <div
                         className={`${

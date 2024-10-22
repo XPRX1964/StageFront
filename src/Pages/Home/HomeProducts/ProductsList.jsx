@@ -12,9 +12,9 @@ const ProductsList = () => {
           "http://localhost:3000/api/v1/products"
         );
         const uniqueProducts = Array.from(
-          new Set(response.data.data.map((product) => product.name))
-        ).map((name) =>
-          response.data.data.find((product) => product.name === name)
+          new Set(response.data.data.map((product) => product._id))
+        ).map((_id) =>
+          response.data.data.find((product) => product._id === _id)
         );
 
         console.log(response.data.data); // Debug log

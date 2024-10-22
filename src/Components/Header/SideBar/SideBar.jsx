@@ -16,8 +16,9 @@ import Youtube from "./Youtube";
 import ShopingCart from "../ShopingCart";
 import HeartIcon from "../HeartIcon";
 import ProfileIcon from "./ProfileIcon";
+import Logout from "./Logout";
 
-function SideBar({ isOpen, toggleSidebar }) {
+function SideBar({ isOpen, toggleSidebar, isAuthenticated, handleLogout }) {
   // Animation variants
   const sidebarVariants = {
     hidden: { x: "100%" }, // start off-screen to the right
@@ -28,15 +29,15 @@ function SideBar({ isOpen, toggleSidebar }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 500); // Delay of 500ms before changing opacity to 1
+    }, 500);
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
+    return () => clearTimeout(timer); 
   }, []);
   return (
     <>
       {isOpen && (
         <div
-          onClick={toggleSidebar} // Close sidebar when clicking on the overlay
+          onClick={toggleSidebar} 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 "
         />
       )}
@@ -57,7 +58,6 @@ function SideBar({ isOpen, toggleSidebar }) {
             </div>
           </div>
 
-          {/* Links */}
           <div className="flex flex-col bg-white flex-1 w-10/12">
             <div className="searchbar  bg-[#e6e6e6] h-[89px] w-full flex items-center justify-between">
               <input
@@ -104,16 +104,44 @@ function SideBar({ isOpen, toggleSidebar }) {
                     </button>
                   </div>
                   <div className="font-poppins flex justify-center animate-slideinright duration-500">
-                    <button className="relative hover:scale-110 font-poppins text-black cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-black before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-black after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]">
-                      <Link to="/register">
-                        <div className="flex gap-2 items-center">
-                          <div className="pb-1">
-                            <ProfileIcon color="black" fill="white" />
+                    {!isAuthenticated ? (
+                      <button className="relative hover:scale-110 font-poppins text-black cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-black before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-black after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]">
+                        <Link to="/login">
+                          <div className="flex gap-2 items-center">
+                            <div className="pb-1">
+                              <ProfileIcon color="black" fill="white" />
+                            </div>
+                            <div className="align-bottom">Login / Register</div>
                           </div>
-                          <div className="align-bottom">Register / Login</div>
+                        </Link>
+                      </button>
+                    ) : (
+                      <>
+                        <div className="flex flex-col gap-2">
+                          <button className="relative hover:scale-110 font-poppins text-black cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-black before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-black after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]">
+                            <Link to="/myaccount">
+                              <div className="flex gap-2 items-center">
+                                <div className="pb-1">
+                                  <ProfileIcon color="black" fill="white" />
+                                </div>
+                                <div className="align-bottom">My Account</div>
+                              </div>
+                            </Link>
+                          </button>
+                          <button
+                            onClick={handleLogout}
+                            className="relative hover:scale-110 font-poppins text-black cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-black before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-black after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]"
+                          >
+                            <div className="flex gap-2 items-center">
+                              <div className="pb-1">
+                                <Logout color="black" />
+                              </div>
+                              <div className="align-bottom">Logout</div>
+                            </div>
+                          </button>
                         </div>
-                      </Link>
-                    </button>
+                      </>
+                    )}
                   </div>
                   <div className="font-poppins flex justify-center animate-slideinright duration-500">
                     <button className="relative hover:scale-110 font-poppins text-black cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-black before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-black after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]">
